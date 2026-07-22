@@ -68,46 +68,6 @@ public class ReflectionUtil {
         }
 
     }
-/*
-    public List<Class<?>> getAnnotatedClass(String packageName, Class classAnnotation, Class methodAnnotation, HashMap<Route, Handler> mapping)
-        throws IOException, ClassNotFoundException    
-    {
-        List<Class<?>> classes = getClasses(packageName);
-        List<Class<?>> annotatedClasses = new ArrayList<>();
-
-        for(Class<?> clazz: classes){
-            if(!clazz.isAnnotationPresent(classAnnotation)){
-                // skip class with no annotation
-                continue;
-            }
-
-            List<Method> annotatedMethods = getAnnotatedMethods(clazz, methodAnnotation);
-
-            for(Method method: annotatedMethods){
-                RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-                Route route = new Route(requestMapping.method(), requestMapping.path());
-                Handler handler = null;
-                
-                if(mapping.containsKey(route)){
-                    throw new IllegalStateException("Duplicate route for " + requestMapping.path());
-                }
-                
-                try{
-                    Object controllerInstance = clazz.getDeclaredConstructor().newInstance();
-                    handler = new Handler(controllerInstance, method);   
-
-                    mapping.put(route, handler);
-
-                } catch(Exception e){
-                    throw new IOException("Failed to instantiate the handler");
-                }
-            }
-
-            annotatedClasses.add(clazz);
-        }
-
-        return annotatedClasses;
-    }*/
 
     private List<Class<?>> getClasses(String packageName) throws IOException, ClassNotFoundException{
         List<Class<?>> classes = new ArrayList<>();
