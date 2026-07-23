@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.black.framework</groupId>
   <artifactId>web-framework</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>0.1</version>
   <name>web-framework</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>21</maven.compiler.release>
+    <maven.compiler.release>17</maven.compiler.release>
   </properties>
 
 

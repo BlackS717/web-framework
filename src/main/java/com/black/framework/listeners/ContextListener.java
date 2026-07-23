@@ -21,12 +21,18 @@ public class ContextListener implements ServletContextListener{
         ServletContext context = sc.getServletContext();
         String packageName = context.getInitParameter("controller-package");
         HashMap<Route, Handler> mapping = new HashMap<>();
+        String viewPrefix = context.getInitParameter("view-path");
+        
         try {
             ReflectionUtil.instance().generateRoute(packageName, Controller.class, RequestMapping.class, mapping);
         } catch (Exception e) {
             throw new RuntimeException("Failed to initialize routes",e);
         }
+
+
+
         context.setAttribute("mapping", mapping);
+        context.setAttribute("view-path", viewPrefix);
     }
     
 }

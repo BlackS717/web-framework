@@ -2,11 +2,14 @@ package com.black.framework.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.black.framework.routing.Route;
 import com.black.framework.enums.requests.RequestMethod;
+import com.black.framework.models.View;
 import com.black.framework.routing.Handler;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,11 +17,15 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class FrontController extends HttpServlet{
     private HashMap<Route, Handler> routeMapping = new HashMap<>();
+    private String viewPath = "";
 
     @Override
     public void init() throws ServletException {
+        ServletContext ctx = getServletContext();
         this.routeMapping =
-            (HashMap<Route, Handler>) getServletContext().getAttribute("mapping");
+            (HashMap<Route, Handler>) ctx.getAttribute("mapping");
+
+        this.viewPath = String.valueOf(ctx.getAttribute("view-path"));
 
     }
     
@@ -48,8 +55,9 @@ public class FrontController extends HttpServlet{
 
         Route route = new Route(requestMethod, path);
 
-        if(!routeMapping.containsKey(route)){
-            throw new IOException("No route configured for " + path);
+        if (!routeMapping.containsKey(route)) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "No route configured for " + path);
+            return;
         }
 
         // if found try to call the method linked to the route
@@ -63,8 +71,23 @@ public class FrontController extends HttpServlet{
             return;
         }
 
-        response.getWriter().println("request result: " + returnVal);
+        
+        if(returnVal instanceof View view){
+            for(Map.Entry<String, Object> entry: view.getData().entrySet()){
+                request.setAttribute(entry.getKey(), entry.getValue());
+            }
 
-        //request.getRequestDispatcher(path).forward(request, response);
+
+
+            request.getRequestDispatcher(generateViewPath(view.getToPath())).forward(request, response);
+            return;
+
+        }
+
+        response.getWriter().println("request result: " + returnVal);
+    }
+
+    private String generateViewPath(String viewName){
+        return viewPath+viewName;
     }
 }
