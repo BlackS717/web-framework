@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.black.framework.routing.Route;
 import com.black.framework.enums.requests.RequestMethod;
+import com.black.framework.models.RequestData;
 import com.black.framework.models.View;
 import com.black.framework.routing.Handler;
 
@@ -74,7 +75,7 @@ public class FrontController extends HttpServlet{
 
         Handler handler = routeMapping.get(route);
 
-        Object returnVal = handler.invoke(requestData);
+        Object returnVal = handler.invoke(new RequestData(requestData));
 
         if(returnVal == null){
             response.getWriter().println("request result: null");

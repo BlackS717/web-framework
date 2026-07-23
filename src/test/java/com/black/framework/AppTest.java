@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.black.framework.annotation.Controller;
 import com.black.framework.annotation.RequestMapping;
+import com.black.framework.models.RequestData;
 import com.black.framework.routing.Handler;
 import com.black.framework.routing.Route;
 import com.black.framework.utils.ReflectionUtil;
@@ -26,8 +27,7 @@ public class AppTest extends TestCase {
         Route route = new Route(com.black.framework.enums.requests.RequestMethod.GET, "/hello");
         Route routePost = new Route(com.black.framework.enums.requests.RequestMethod.POST, "/hello");
 
-        Map<String, String[]> data = new HashMap<>();
-
+        RequestData data = new RequestData(new HashMap<>());
 
         assertTrue("Expected route to be generated from annotations", mapping.containsKey(route));
 
