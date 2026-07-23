@@ -95,7 +95,7 @@ public class FrontController extends HttpServlet{
         }
 
         if(returnVal instanceof RedirectResponse redirectResponse){
-            response.sendRedirect(redirectResponse.getToPath());
+            response.sendRedirect(request.getContextPath() + redirectResponse.getToPath());
             return;
         }
 
