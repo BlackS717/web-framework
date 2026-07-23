@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.black.framework.routing.Route;
 import com.black.framework.enums.requests.RequestMethod;
+import com.black.framework.models.RedirectResponse;
 import com.black.framework.models.RequestData;
 import com.black.framework.models.View;
 import com.black.framework.routing.Handler;
@@ -91,6 +92,11 @@ public class FrontController extends HttpServlet{
             request.getRequestDispatcher(generateViewPath(view.getToPath())).forward(request, response);
             return;
 
+        }
+
+        if(returnVal instanceof RedirectResponse redirectResponse){
+            response.sendRedirect(redirectResponse.getToPath());
+            return;
         }
 
         response.getWriter().println("request result: " + returnVal);
