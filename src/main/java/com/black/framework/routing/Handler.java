@@ -1,6 +1,7 @@
 package com.black.framework.routing;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 public class Handler {
     private final Object controllerInstance;
@@ -19,17 +20,16 @@ public class Handler {
         return controllerMethod;
     }
 
-    public Object invoke(){
+    public Object invoke(Map<String, String[]> data){
         if(controllerMethod == null){
             return null;
         }
         try {
-            return controllerMethod.invoke(controllerInstance);
+            return controllerMethod.invoke(controllerInstance, data);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-    
     
 }

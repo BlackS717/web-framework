@@ -1,6 +1,7 @@
 package com.black.framework;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.black.framework.annotation.Controller;
 import com.black.framework.annotation.RequestMapping;
@@ -25,15 +26,18 @@ public class AppTest extends TestCase {
         Route route = new Route(com.black.framework.enums.requests.RequestMethod.GET, "/hello");
         Route routePost = new Route(com.black.framework.enums.requests.RequestMethod.POST, "/hello");
 
+        Map<String, String[]> data = new HashMap<>();
+
+
         assertTrue("Expected route to be generated from annotations", mapping.containsKey(route));
 
         Handler handler = mapping.get(route);
         assertNotNull("Expected handler to be created", handler);
-        assertEquals("hello", handler.invoke());
+        assertEquals("hello", handler.invoke(data));
 
         handler = mapping.get(routePost);
         assertNotNull("Expected handler to be created", handler);
-        assertEquals("post hello", handler.invoke());
+        assertEquals("post hello", handler.invoke(data));
     }
 
     public void testControllersInSubpackagesAreDiscovered() throws Exception {

@@ -1,6 +1,5 @@
 package com.black.framework.listeners;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import jakarta.servlet.ServletContext;
@@ -32,7 +31,7 @@ public class ContextListener implements ServletContextListener{
 
 
         context.setAttribute("mapping", mapping);
-        context.setAttribute("view-path", viewPrefix);
+        context.setAttribute("viewPath", viewPrefix);
     }
     
 }

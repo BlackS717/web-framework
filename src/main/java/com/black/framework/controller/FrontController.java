@@ -1,6 +1,7 @@
 package com.black.framework.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,16 +17,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class FrontController extends HttpServlet{
-    private HashMap<Route, Handler> routeMapping = new HashMap<>();
+    private Map<Route, Handler> routeMapping = new HashMap<>();
     private String viewPath = "";
 
+    @SuppressWarnings("unchecked")
     @Override
     public void init() throws ServletException {
         ServletContext ctx = getServletContext();
-        this.routeMapping =
-            (HashMap<Route, Handler>) ctx.getAttribute("mapping");
-
-        this.viewPath = String.valueOf(ctx.getAttribute("view-path"));
+        this.routeMapping =(Map<Route, Handler>) ctx.getAttribute("mapping");
+        this.viewPath = String.valueOf(ctx.getAttribute("viewPath"));
 
     }
     
@@ -44,6 +44,16 @@ public class FrontController extends HttpServlet{
 
 
         System.out.println(">>> REQUEST RECEIVED: " + request.getRequestURI());
+
+        Map<String, String[]> requestData = new HashMap<>();
+
+        Enumeration<String> paramNames = request.getParameterNames();
+        while(paramNames.hasMoreElements()){
+            String paramName = paramNames.nextElement();
+            String[] paramValue = request.getParameterValues(paramName);
+
+            requestData.put(paramName, paramValue);
+        }
 
         response.setContentType("text/html;charset=UTF-8");
         String path = request.getRequestURI().substring(request.getContextPath().length());
@@ -64,7 +74,7 @@ public class FrontController extends HttpServlet{
 
         Handler handler = routeMapping.get(route);
 
-        Object returnVal = handler.invoke();
+        Object returnVal = handler.invoke(requestData);
 
         if(returnVal == null){
             response.getWriter().println("request result: null");
@@ -76,8 +86,6 @@ public class FrontController extends HttpServlet{
             for(Map.Entry<String, Object> entry: view.getData().entrySet()){
                 request.setAttribute(entry.getKey(), entry.getValue());
             }
-
-
 
             request.getRequestDispatcher(generateViewPath(view.getToPath())).forward(request, response);
             return;

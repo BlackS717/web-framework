@@ -1,5 +1,7 @@
 package com.black.framework;
 
+import java.util.Map;
+
 import com.black.framework.annotation.Controller;
 import com.black.framework.annotation.RequestMapping;
 import com.black.framework.enums.requests.RequestMethod;
@@ -8,12 +10,12 @@ import com.black.framework.enums.requests.RequestMethod;
 public class AnnotatedController {
 
     @RequestMapping(path = "/hello", method = RequestMethod.GET)
-    public String hello() {
+    public String hello(Map<String, String[]> data) {
         return "hello";
     }
 
     @RequestMapping(path = "/hello", method = RequestMethod.POST)
-    public String postHello() {
+    public String postHello(Map<String, String[]> data) {
         return "post hello";
     }
 }
