@@ -7,6 +7,7 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 
 import com.black.framework.annotation.RequestMapping;
+import com.black.framework.context.ApplicationContext;
 import com.black.framework.routing.Handler;
 import com.black.framework.routing.Route;
 import com.black.framework.utils.ReflectionUtil;
@@ -29,9 +30,9 @@ public class ContextListener implements ServletContextListener{
         }
 
 
-
-        context.setAttribute("mapping", mapping);
-        context.setAttribute("viewPath", viewPrefix);
+        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPrefix);
+        
+        context.setAttribute("applicationContext", applicationContext);
     }
     
 }
