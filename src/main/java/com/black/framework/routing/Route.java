@@ -1,8 +1,6 @@
 package com.black.framework.routing;
 
 import com.black.framework.enums.requests.RequestMethod;
-
-import java.lang.reflect.Method;
 import java.util.Objects;
 
 public class Route {

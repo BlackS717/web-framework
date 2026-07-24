@@ -2,6 +2,7 @@ package com.black.framework.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class ReflectionUtil {
         return instance;
     }
 
-    public void generateRoute(String packageName, Class classAnnotation, Class methodAnnotation, HashMap<Route, Handler> mapping)
+    public void generateRoute(String packageName, Class<? extends Annotation> classAnnotation, Class<? extends Annotation> methodAnnotation, HashMap<Route, Handler> mapping)
         throws IOException, ClassNotFoundException    
     {
         List<Class<?>> classes = getClasses(packageName);
@@ -105,7 +106,7 @@ public class ReflectionUtil {
         return classes;
     }
 
-    public List<Method> getAnnotatedMethods(Class<?> clazz, Class annotationClass){
+    public List<Method> getAnnotatedMethods(Class<?> clazz, Class<? extends Annotation> annotationClass){
         List<Method> annotatedMethods = new ArrayList<>();
         Method[] methods = clazz.getDeclaredMethods();
 

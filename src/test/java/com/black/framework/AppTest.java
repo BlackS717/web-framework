@@ -1,8 +1,6 @@
 package com.black.framework;
 
 import java.util.HashMap;
-import java.util.Map;
-
 import com.black.framework.annotation.Controller;
 import com.black.framework.annotation.RequestMapping;
 import com.black.framework.models.RequestData;
@@ -27,7 +25,7 @@ public class AppTest extends TestCase {
         Route route = new Route(com.black.framework.enums.requests.RequestMethod.GET, "/hello");
         Route routePost = new Route(com.black.framework.enums.requests.RequestMethod.POST, "/hello");
 
-        RequestData data = new RequestData(new HashMap<>());
+        RequestData data = RequestData.generateMockRequest(new HashMap<>());
 
         assertTrue("Expected route to be generated from annotations", mapping.containsKey(route));
 
