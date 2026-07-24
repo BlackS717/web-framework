@@ -10,10 +10,12 @@ import com.black.framework.routing.Route;
 public class ApplicationContext {
     private final Map<Route,Handler> routeMapping;
     private final String viewPath;
+    private final DataSourceConfig dataSourceConfig;
 
-    public ApplicationContext(Map<Route,Handler> routeMapping, String viewPath){
+    public ApplicationContext(Map<Route,Handler> routeMapping, String viewPath, DataSourceConfig dataSourceConfig){
         this.routeMapping = Map.copyOf(routeMapping);
         this.viewPath = viewPath;
+        this.dataSourceConfig = dataSourceConfig;
     }
 
     public Object invokeHandler(Route route,  RequestData requestData){

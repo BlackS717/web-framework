@@ -8,6 +8,7 @@ import jakarta.servlet.ServletContextListener;
 
 import com.black.framework.annotation.RequestMapping;
 import com.black.framework.context.ApplicationContext;
+import com.black.framework.context.DataSourceConfig;
 import com.black.framework.routing.Handler;
 import com.black.framework.routing.Route;
 import com.black.framework.utils.ReflectionUtil;
@@ -30,7 +31,13 @@ public class ContextListener implements ServletContextListener{
         }
 
 
-        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPrefix);
+        String url = context.getInitParameter("datasource-url");
+        String username = context.getInitParameter("datasource-username");
+        String password = context.getInitParameter("datasource-password");
+
+        DataSourceConfig dataSourceConfig = new DataSourceConfig(url, username, password);
+
+        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPrefix, dataSourceConfig);
         
         context.setAttribute("applicationContext", applicationContext);
     }
