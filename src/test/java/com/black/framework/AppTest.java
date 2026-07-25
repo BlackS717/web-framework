@@ -31,11 +31,11 @@ public class AppTest extends TestCase {
 
         Handler handler = mapping.get(route);
         assertNotNull("Expected handler to be created", handler);
-        assertEquals("hello", handler.invoke(data));
+        assertEquals("hello", handler.invoke(null, data));
 
         handler = mapping.get(routePost);
         assertNotNull("Expected handler to be created", handler);
-        assertEquals("post hello", handler.invoke(data));
+        assertEquals("post hello", handler.invoke(null, data));
     }
 
     public void testControllersInSubpackagesAreDiscovered() throws Exception {

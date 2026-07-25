@@ -23,22 +23,20 @@ public class ContextListener implements ServletContextListener{
         String packageName = context.getInitParameter("controller-package");
         HashMap<Route, Handler> mapping = new HashMap<>();
         String viewPrefix = context.getInitParameter("view-path");
+        String url = context.getInitParameter("datasource-url");
+        String username = context.getInitParameter("datasource-username");
+        String password = context.getInitParameter("datasource-password"); 
+        String driverClassName = context.getInitParameter("datasource-driver-class-name");
+
+        DataSourceConfig dataSourceConfig = new DataSourceConfig(url, driverClassName, username, password);
         
         try {
             ReflectionUtil.instance().generateRoute(packageName, Controller.class, RequestMapping.class, mapping);
         } catch (Exception e) {
             throw new RuntimeException("Failed to initialize routes",e);
         }
-
-
-        String url = context.getInitParameter("datasource-url");
-        String username = context.getInitParameter("datasource-username");
-        String password = context.getInitParameter("datasource-password");
-
-        DataSourceConfig dataSourceConfig = new DataSourceConfig(url, username, password);
-
-        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPrefix, dataSourceConfig);
         
+        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPrefix, dataSourceConfig);
         context.setAttribute("applicationContext", applicationContext);
     }
     

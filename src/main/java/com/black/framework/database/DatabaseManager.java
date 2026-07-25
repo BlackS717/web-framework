@@ -13,9 +13,15 @@ public class DatabaseManager {
 
     public DatabaseManager(DataSourceConfig dataSourceConfig){
         this.dataSourceConfig = dataSourceConfig;
+
+        try{
+            Class.forName(dataSourceConfig.getDriverClassName());
+        } catch (Exception e){
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
-    public void executeQuery(QueryBuilder queryBuilder){
+    public String executeQuery(QueryBuilder queryBuilder){
         try (Connection connection = DriverManager.getConnection(
                 dataSourceConfig.getUrl(),
                 dataSourceConfig.getUsername(),
@@ -35,19 +41,22 @@ public class DatabaseManager {
                 try(ResultSet rs = preparedStatement.executeQuery()){
                     int index = 1;
                     System.out.println(">>> DATABASE QUERY TEST");
+                    String data = "";
                     while(rs.next()){
-                        System.out.println(rs.getObject(index++));
+                        data += rs.getObject(index++).toString();
                     }
+
+                    return data;
                 } catch (Exception e) {
-                    
+                    return "Failed to Query the data";
                 }
 
             } catch (Exception e) {
-                
+                return "Failed to prepare statement to database";    
             }
             
         } catch (Exception e) {
-            // connection failed
+            return "Failed to connect to database " + dataSourceConfig.toString() + "\n" + e.getMessage() ;
         }
     }
 }
