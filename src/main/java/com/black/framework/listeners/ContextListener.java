@@ -8,6 +8,7 @@ import jakarta.servlet.ServletContextListener;
 
 import com.black.framework.annotation.RequestMapping;
 import com.black.framework.context.ApplicationContext;
+import com.black.framework.context.DataSourceConfig;
 import com.black.framework.routing.Handler;
 import com.black.framework.routing.Route;
 import com.black.framework.utils.ReflectionUtil;
@@ -22,16 +23,20 @@ public class ContextListener implements ServletContextListener{
         String packageName = context.getInitParameter("controller-package");
         HashMap<Route, Handler> mapping = new HashMap<>();
         String viewPrefix = context.getInitParameter("view-path");
+        String url = context.getInitParameter("datasource-url");
+        String username = context.getInitParameter("datasource-username");
+        String password = context.getInitParameter("datasource-password"); 
+        String driverClassName = context.getInitParameter("datasource-driver-class-name");
+
+        DataSourceConfig dataSourceConfig = new DataSourceConfig(url, driverClassName, username, password);
         
         try {
             ReflectionUtil.instance().generateRoute(packageName, Controller.class, RequestMapping.class, mapping);
         } catch (Exception e) {
             throw new RuntimeException("Failed to initialize routes",e);
         }
-
-
-        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPrefix);
         
+        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPrefix, dataSourceConfig);
         context.setAttribute("applicationContext", applicationContext);
     }
     

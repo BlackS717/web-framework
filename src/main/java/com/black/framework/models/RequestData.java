@@ -21,6 +21,11 @@ public class RequestData {
         }
     }
 
+    public static RequestData generateMockRequest(Map<String, String[]> mockData){
+        RequestData requestData = new RequestData(mockData);
+        return requestData;
+    }
+
     private static Map<String, String[]> extractParameters(HttpServletRequest request){
         Map<String, String[]> requestData = new HashMap<>();
 
