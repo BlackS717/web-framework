@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.black.framework.context.DataSourceConfig;
@@ -21,7 +24,7 @@ public class DatabaseManager {
         }
     }
 
-    public String executeQuery(QueryBuilder queryBuilder){
+    public QueryResults executeQuery(QueryBuilder queryBuilder) throws SQLException{
         try (Connection connection = DriverManager.getConnection(
                 dataSourceConfig.getUrl(),
                 dataSourceConfig.getUsername(),
@@ -39,24 +42,41 @@ public class DatabaseManager {
                 }
 
                 try(ResultSet rs = preparedStatement.executeQuery()){
-                    int index = 1;
                     System.out.println(">>> DATABASE QUERY TEST");
-                    String data = "";
-                    while(rs.next()){
-                        data += rs.getObject(index++).toString();
+                    
+                    ResultSetMetaData metaData = rs.getMetaData();    
+                    int columnCount =  metaData.getColumnCount();
+                    
+                    List<String> columnsName = new ArrayList<>();
+                    
+                    for (int i = 1; i <= columnCount; i++) {
+                        columnsName.add(metaData.getColumnLabel(i));
                     }
 
-                    return data;
+                    QueryResults results = new QueryResults(columnsName);
+
+                    while(rs.next()){
+                        List<Object> rowValues = new ArrayList<>();
+                        
+                        for (int i = 1; i <= columnCount; i++) {
+                            Object value = rs.getObject(i);
+                            rowValues.add(value);
+                        }
+
+                        results.addRow(rowValues);
+                    }
+
+                    return results;
                 } catch (Exception e) {
-                    return "Failed to Query the data";
+                    throw new SQLException("Failed to process database query result", e);
                 }
 
             } catch (Exception e) {
-                return "Failed to prepare statement to database";    
+                throw new SQLException();
             }
             
         } catch (Exception e) {
-            return "Failed to connect to database " + dataSourceConfig.toString() + "\n" + e.getMessage() ;
+            throw new SQLException();
         }
     }
 }

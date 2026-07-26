@@ -51,6 +51,8 @@ public class FrontController extends HttpServlet{
 
         Route route = new Route(requestMethod, path);
 
+        System.out.println(">> route: " + requestMethod + " | " + path);
+
         try {
             Object returnVal = applicationContext.invokeHandler(route, new RequestData(request));
             handleResult(returnVal, request, response);

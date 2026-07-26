@@ -36,9 +36,9 @@ public class Route {
                 && Objects.equals(path, route.path);
     }
 
-@Override
-public int hashCode() {
-    return Objects.hash(requestMethod, path);
-}
+    @Override
+    public int hashCode() {
+        return Objects.hash(requestMethod, path);
+    }
 
 }
