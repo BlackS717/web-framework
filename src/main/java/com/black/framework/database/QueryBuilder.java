@@ -21,7 +21,7 @@ public class QueryBuilder {
         return this;
     }
 
-    public QueryBuilder where(WhereCondition...whereConditions){
+    public QueryBuilder where(WhereCondition... whereConditions){
         for (WhereCondition whereCondition : whereConditions) {
             this.where += " AND " + whereCondition.buildCondition();
             this.parameters.add(whereCondition.getValue());
