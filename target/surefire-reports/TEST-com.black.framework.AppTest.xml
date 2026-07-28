@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.black.framework.AppTest" time="0.035" tests="2" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="D:\Java\Framework\web-framework\target\test-classes;D:\Java\Framework\web-framework\target\classes;C:\Users\Tianiaina\.m2\repository\org\postgresql\postgresql\42.6.0\postgresql-42.6.0.jar;C:\Users\Tianiaina\.m2\repository\org\checkerframework\checker-qual\3.31.0\checker-qual-3.31.0.jar;C:\Users\Tianiaina\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Tianiaina\.m2\repository\jakarta\servlet\jakarta.servlet-api\6.0.0\jakarta.servlet-api-6.0.0.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Europe/Moscow"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
+    <property name="sun.java.command" value="C:\Users\Tianiaina\AppData\Local\Temp\surefire8594441916917562470\surefirebooter-20260728212109785_3.jar C:\Users\Tianiaina\AppData\Local\Temp\surefire8594441916917562470 2026-07-28T21-21-09_683-jvmRun1 surefire-20260728212109785_1tmp surefire_0-20260728212109785_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\Java\Framework\web-framework\target\test-classes;D:\Java\Framework\web-framework\target\classes;C:\Users\Tianiaina\.m2\repository\org\postgresql\postgresql\42.6.0\postgresql-42.6.0.jar;C:\Users\Tianiaina\.m2\repository\org\checkerframework\checker-qual\3.31.0\checker-qual-3.31.0.jar;C:\Users\Tianiaina\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Tianiaina\.m2\repository\jakarta\servlet\jakarta.servlet-api\6.0.0\jakarta.servlet-api-6.0.0.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Tianiaina"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-01-21"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-21"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="D:\Java\Framework\web-framework"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\Tianiaina\AppData\Local\Temp\surefire8594441916917562470\surefirebooter-20260728212109785_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.6+8-LTS-188"/>
+    <property name="user.name" value="Tianiaina"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\Tianiaina\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\TIANIA~1\AppData\Local\Temp\"/>
+    <property name="java.version" value="21.0.6"/>
+    <property name="user.dir" value="D:\Java\Framework\web-framework"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-21\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;c:\Users\Tianiaina\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\Tianiaina\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Java\jdk-21\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Game\winlibs\mingw64\bin;D:\Logiciel\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Logiciel\apache-tomcat-10.1.57-windows-x64\apache-tomcat-10.1.57\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;D:\Logiciel\xampp\php;C:\Program Files\GitHub CLI\;D:\Logiciel\apache-maven-3.9.11\bin;C:\Program Files\PostgreSQL\18\bin;C:\ProgramData\ComposerSetup\bin;D:\Logiciel\xampp\mysql\bin;C:\Program Files (x86)\dotnet\;D:\Logiciel\apache-maven-3.9.16-bin\apache-maven-3.9.16\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Tianiaina\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Tianiaina\AppData\Local\Programs\Python\Python312\;C:\Users\Tianiaina\AppData\Local\Microsoft\WindowsApps;C:\Users\Tianiaina\AppData\Roaming\Programs\Zero Install;C:\Users\Tianiaina\AppData\Local\GitHubDesktop\bin;D:\Game\winlibs\mingw64\bin;D:\Logiciel\Microsoft VS Code\bin;D:\Logiciel\PyCharm Community Edition 2024.3\bin;C:\Program Files\Tesseract-OCR;C:\Users\Tianiaina\AppData\Local\Microsoft\WindowsApps;C:\Users\Tianiaina\AppData\Local\garyttierney\me3\bin;D:\Logiciel\xampp\php;C:\Users\Tianiaina\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\Tianiaina\.dotnet\tools;C:\Users\Tianiaina\AppData\Roaming\Composer\vendor\bin;c:\Users\Tianiaina\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="21.0.6+8-LTS-188"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="testAnnotationsCreateRouteAndHandler" classname="com.black.framework.AppTest" time="0.019"/>
+  <testcase name="testControllersInSubpackagesAreDiscovered" classname="com.black.framework.AppTest" time="0.0"/>
+</testsuite>

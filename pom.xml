@@ -4,7 +4,7 @@
   <groupId>com.black.framework</groupId>
   <artifactId>web-framework</artifactId>
   <packaging>jar</packaging>
-  <version>0.1</version>
+  <version>0.3</version>
   <name>web-framework</name>
   <url>http://maven.apache.org</url>
 

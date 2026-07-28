@@ -1,0 +1,3 @@
+com\black\framework\AnnotatedController.class
+com\black\framework\test\AnnotatedControllerInSubpackage.class
+com\black\framework\AppTest.class

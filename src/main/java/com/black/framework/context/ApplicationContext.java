@@ -39,6 +39,10 @@ public class ApplicationContext {
     }
 
     public DatabaseManager getDatabaseManager(){
+        if(!this.databaseManager.isUseDatabase()){
+            return null;
+        }
+
         return this.databaseManager;
     }
 }
