@@ -1,7 +1,9 @@
 package com.black.framework.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import com.black.framework.annotation.RequestMapping;
 import com.black.framework.routing.Handler;
@@ -117,6 +120,23 @@ public class ReflectionUtil {
         }
 
         return annotatedMethods;
+    }
+
+    public Properties loadProperties() throws IOException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+        try (InputStream input = classLoader.getResourceAsStream("application.properties")) {
+            if (input == null) {
+                throw new FileNotFoundException(
+                    "application.properties not found in the classpath"
+                );
+            }
+
+            Properties properties = new Properties();
+            properties.load(input);
+
+            return properties;
+        }
     }
 
     private String getName(File file){
