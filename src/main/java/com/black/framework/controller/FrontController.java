@@ -13,10 +13,12 @@ import com.black.framework.models.View;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@WebServlet(loadOnStartup = 1, urlPatterns = "/*")
 public class FrontController extends HttpServlet{
     private ApplicationContext applicationContext;
 

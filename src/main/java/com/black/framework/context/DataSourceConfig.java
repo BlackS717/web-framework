@@ -5,12 +5,14 @@ public class DataSourceConfig {
     private final String driverClassName;
     private final String username;
     private final String password;
+    private final boolean useDatabase;
     
-    public DataSourceConfig(String url, String driverClassName, String username, String password){
+    public DataSourceConfig(String url, String driverClassName, String username, String password, boolean useDatabase){
         this.url = url;
         this.driverClassName = driverClassName;
         this.username = username;
         this.password = password;
+        this.useDatabase = useDatabase;
     }
     
     public String getUrl(){
@@ -27,6 +29,10 @@ public class DataSourceConfig {
 
     public String getPassword(){
         return this.password;
+    }
+
+    public boolean isUseDatabase(){
+        return useDatabase;
     }
 
     @Override

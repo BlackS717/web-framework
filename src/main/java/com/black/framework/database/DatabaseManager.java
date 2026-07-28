@@ -14,14 +14,37 @@ import com.black.framework.context.DataSourceConfig;
 public class DatabaseManager {
     private final DataSourceConfig dataSourceConfig;
 
+    public boolean isUseDatabase(){
+        return dataSourceConfig.isUseDatabase();
+    }
+
     public DatabaseManager(DataSourceConfig dataSourceConfig){
         this.dataSourceConfig = dataSourceConfig;
 
-        try{
-            Class.forName(dataSourceConfig.getDriverClassName());
-        } catch (Exception e){
-            throw new IllegalArgumentException(e.getMessage());
+        if(dataSourceConfig.isUseDatabase()){      
+            try{
+                Class.forName(dataSourceConfig.getDriverClassName());
+            } catch (Exception e){
+                e.printStackTrace();
+                throw new IllegalArgumentException();
+            }
+
+            try (Connection connection = DriverManager.getConnection(
+                    dataSourceConfig.getUrl(),
+                    dataSourceConfig.getUsername(),
+                    dataSourceConfig.getPassword()
+                )
+                ) 
+            {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new IllegalArgumentException(e.getMessage());
+            }
+        } else {
+
         }
+
     }
 
     public QueryResults executeQuery(QueryBuilder queryBuilder) throws SQLException{

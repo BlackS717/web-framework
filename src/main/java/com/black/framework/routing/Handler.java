@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import com.black.framework.context.ApplicationContext;
 import com.black.framework.database.DatabaseManager;
+import com.black.framework.exceptions.DataSourceNotConfiguredException;
 
 public class Handler {
     private final Object controllerInstance;
@@ -40,6 +41,11 @@ public class Handler {
 
                 if (parameterType == DatabaseManager.class) {
                     resolvedArguments[i] = applicationContext.getDatabaseManager();
+
+                    if(resolvedArguments[i] == null){
+                        throw new DataSourceNotConfiguredException();
+                    }
+
                     continue;
                 }
 
