@@ -39,45 +39,40 @@ public class ContextListener implements ServletContextListener{
 
         try {
             Properties properties = ReflectionUtil.instance().loadProperties();
-            hasDataSourceConfig =
-                properties.containsKey("datasource.url")
-                || properties.containsKey("datasource.driver-class-name")
-                || properties.containsKey("datasource.username")
-                || properties.containsKey("datasource.password");
+            hasDataSourceConfig = hasDataSourceConfig(properties);
 
+            if (hasDataSourceConfig) {
+                driverClassName = getRequiredProperty(
+                    properties,
+                    "datasource.driver-class-name"
+                );
 
-            if(hasDataSourceConfig){
-                driverClassName = properties.getProperty("datasource.driver-class-name");
-                url = properties.getProperty("datasource.url");
-                username = properties.getProperty("datasource.username");
-                password = properties.getProperty("datasource.password");
+                url = getRequiredProperty(
+                    properties,
+                    "datasource.url"
+                );
 
-                if(driverClassName == null){
-                    throw new MissingPropertyException(driverClassName);
-                }
+                username = getRequiredProperty(
+                    properties,
+                    "datasource.username"
+                );
 
-                if(url == null){
-                    throw new MissingPropertyException(url);
-                }
-
-                if(username == null){
-                    throw new MissingPropertyException(username);
-                }
-
-                if(password == null){
-                    throw new MissingPropertyException(password);
-                }
-            }    
-
-
-            viewPath = properties.getProperty("view.path", DEFAULT_VIEW_PATH);
-
-            packageName = properties.getProperty("controller.package");
-            if(packageName == null){
-                throw new MissingPropertyException(packageName);
+                password = getRequiredProperty(
+                    properties,
+                    "datasource.password"
+                );
+    
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                
+                Class.forName(driverClassName, true, classLoader);
             }
 
+            packageName = getRequiredProperty(properties, "controller.package");
+
+            viewPath = getOptionalProperty(properties, "view.path", DEFAULT_VIEW_PATH);
+            
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
 
@@ -86,11 +81,57 @@ public class ContextListener implements ServletContextListener{
         try {
             ReflectionUtil.instance().generateRoute(packageName, Controller.class, RequestMapping.class, mapping);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("Failed to initialize routes",e);
         }
         
-        ApplicationContext applicationContext = new ApplicationContext(mapping, viewPath, dataSourceConfig);
-        context.setAttribute("applicationContext", applicationContext);
+        try {
+
+            ApplicationContext applicationContext = new ApplicationContext(mapping, viewPath, dataSourceConfig);
+            context.setAttribute("applicationContext", applicationContext);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
+
+    private String getProperty(Properties properties, String propertyName, boolean required){
+
+        String property = properties.getProperty(propertyName);
+        if(required && property == null){
+            throw new MissingPropertyException(propertyName);
+        }
+
+        return property;
+    }
+
+    private String getProperty(Properties properties, String propertyName, String defaultValue, boolean required){
+
+        String property = properties.getProperty(propertyName, defaultValue);
+        if(required && property == null){
+            throw new MissingPropertyException(propertyName);
+        }
+
+        return property;
+    }
+
+    private String getOptionalProperty(Properties properties, String propertyName){
+       return getOptionalProperty(properties, propertyName, null);
+    }
+
+    private String getOptionalProperty(Properties properties, String propertyName, String defaultValue){
+       return getProperty(properties, propertyName, defaultValue, false);
+    }
+
+    private String getRequiredProperty(Properties properties, String propertyName){
+        return getProperty(properties, propertyName, true);
+    }
+
+    private boolean hasDataSourceConfig(Properties properties){
+        return properties.containsKey("datasource.url")
+                || properties.containsKey("datasource.driver-class-name")
+                || properties.containsKey("datasource.username")
+                || properties.containsKey("datasource.password");
+    }
+
 }

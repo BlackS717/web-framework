@@ -1,5 +1,6 @@
 package com.black.framework.context;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import com.black.framework.database.DatabaseManager;
@@ -13,7 +14,7 @@ public class ApplicationContext {
     private final String viewPath;
     private final DatabaseManager databaseManager;
 
-    public ApplicationContext(Map<Route,Handler> routeMapping, String viewPath, DataSourceConfig dataSourceConfig){
+    public ApplicationContext(Map<Route,Handler> routeMapping, String viewPath, DataSourceConfig dataSourceConfig) throws SQLException{
         this.routeMapping = Map.copyOf(routeMapping);
         this.viewPath = viewPath;
         this.databaseManager = new DatabaseManager(dataSourceConfig);

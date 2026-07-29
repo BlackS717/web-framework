@@ -18,16 +18,10 @@ public class DatabaseManager {
         return dataSourceConfig.isUseDatabase();
     }
 
-    public DatabaseManager(DataSourceConfig dataSourceConfig){
+    public DatabaseManager(DataSourceConfig dataSourceConfig) throws SQLException{
         this.dataSourceConfig = dataSourceConfig;
 
-        if(dataSourceConfig.isUseDatabase()){      
-            try{
-                Class.forName(dataSourceConfig.getDriverClassName());
-            } catch (Exception e){
-                e.printStackTrace();
-                throw new IllegalArgumentException();
-            }
+        if(dataSourceConfig.isUseDatabase()){
 
             try (Connection connection = DriverManager.getConnection(
                     dataSourceConfig.getUrl(),
@@ -37,12 +31,9 @@ public class DatabaseManager {
                 ) 
             {
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new IllegalArgumentException(e.getMessage());
+            } catch (SQLException e) {
+                throw new SQLException();
             }
-        } else {
-
         }
 
     }
